@@ -29,8 +29,32 @@ void	*my_calloc(int bytes)
 	return p;
 }
 
-void append_string(char **buffer, char *holder, int size)
+void append_string(char **buffer, char *holder, int holder_size)
 {
+	int		buffer_size;
+	char	*appended_string;
+	int		i;
+	int		j;
+
+	if (!holder_size)
+		return ;
+	buffer_size = ft_strlen(*buffer);
+	appended_string = my_calloc(buffer_size + holder_size + 1);
+	i = 0;
+	while(i < buffer_size)
+	{
+		appended_string[i] = (*buffer)[i];
+		i++;
+	}
+	j = 0;
+	while (j < holder_size)
+	{
+		appended_string[i] = holder[j];
+		i++;
+		j++;
+	}
+	free(*buffer);
+	*buffer = appended_string;
 }
 
 int read_line(char **buffer, int fd)
